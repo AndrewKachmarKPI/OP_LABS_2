@@ -3,4 +3,5 @@ project(lab1)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(lab1 main.cpp textFileProgram.h textFileProgram.cpp binaryFileProgram.h binaryFileProgram.cpp classes/Patient.h)
+add_executable(lab1 main.cpp textFileProgram.h textFileProgram.cpp binaryFileProgram.h
+        binaryFileProgram.cpp classes/Patient.h classes/Patient.cpp)

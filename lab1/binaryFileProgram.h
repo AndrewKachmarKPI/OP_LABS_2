@@ -2,3 +2,4 @@
 
 void savePatientToFile(Patient patient, string fileName);
 void readFileContent(string fileName);
+void generatePatients(int numberOfPatients);
