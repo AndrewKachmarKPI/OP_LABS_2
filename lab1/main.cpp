@@ -5,14 +5,14 @@
 
 using namespace std;
 
-void createTextFile(int numberOfLines);
+void createTextFile();
 vector<string> readTextFile(string fileName);
 void printLines(const vector<string> &lines);
 vector<string> sortLines(vector<string> lines);
 void saveLinesToFile(vector<string> lines);
 
 int main() {
-    createTextFile(21);
+    createTextFile();
     vector<string> lines = readTextFile("firstTextFile.txt");
     vector<string> sortedLines = sortLines(lines);
     saveLinesToFile(sortedLines);
@@ -48,13 +48,17 @@ void saveLinesToFile(vector<string> lines) {
     }
 }
 
-void createTextFile(int numberOfLines) {
+void createTextFile() {
+    int numberOfLines;
+    cout<<"Enter number of lines:";
+    cin>>numberOfLines;
     ofstream fout;
     fout.open("firstTextFile.txt");
     cout << "Enter lines:" << endl;
+
     for (int i = 0; i < numberOfLines; ++i) {
         string line;
-        getline(cin, line);
+        getline(cin>>ws, line);
         fout << line;
         fout << "\n";
     }
