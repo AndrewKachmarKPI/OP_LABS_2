@@ -1,0 +1,3 @@
+"D:\DEVTOOLS\CLion 2021.3.1\bin\cmake\win\bin\cmake.exe" -E rm -f CMakeFiles\lab1.dir/objects.a
+D:\DEVTOOLS\CLION2~1.1\bin\mingw\bin\ar.exe qc CMakeFiles\lab1.dir/objects.a @CMakeFiles\lab1.dir\objects1.rsp
+D:\DEVTOOLS\CLION2~1.1\bin\mingw\bin\G__~1.EXE -g -Wl,--whole-archive CMakeFiles\lab1.dir/objects.a -Wl,--no-whole-archive -o lab1.exe -Wl,--out-implib,liblab1.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\lab1.dir\linklibs.rsp
