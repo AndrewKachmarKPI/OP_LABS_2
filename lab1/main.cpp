@@ -7,18 +7,17 @@ using namespace std;
 
 int main() {
     //FIRST PART
-    createTextFile();
-    vector<string> lines = readTextFile("startTextFile.txt");
-    vector<string> sortedLines = sortLines(lines);
-    saveLinesToFile(sortedLines);
-
+    createTextFile(); //Введення тексту та запис його у файл
+    vector<string> lines = readTextFile("startTextFile.txt"); //Отримання рядків файлу
+    vector<string> sortedLines = sortLines(lines); //Сортування та присвоєння кількості символів
+    saveLinesToFile(sortedLines); //Запис відсортованих рядків у новий файл
 
     cout << endl << "START FILE" << endl;
-    printFile("startTextFile.txt");
+    printFile("startTextFile.txt"); //Виведення початкового файлу
     cout << endl << "FINAL FILE" << endl;
-    printFile("finalText.txt");
-    //FIRST PART
+    printFile("finalText.txt");  //Виведення кінцевого файлу
 
+    //FIRST PART
 //    savePatientToFile(Patient(1,"vasa","1291:23","2134"),"allPatients.dat");
 //    generatePatients(100);
 //    char name[20] = {'k','a','c','h','m','a','r'};
