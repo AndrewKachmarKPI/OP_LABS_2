@@ -3,10 +3,11 @@
 //
 #include <string>
 #include <vector>
+
 using namespace std;
 
-void createTextFile();
-vector<string> readTextFile(const string& fileName);
-void printFile(const string& fileName);
-vector<string> sortLines(vector<string> lines);
-void saveLinesToFile(const vector<string>& lines);
+void createTextFile(); //Функція для створення початкового файлу
+vector<string> readTextFile(const string &fileName); //Функція для считування даних з файла
+void printFile(const string &fileName); //Функція запису рядків у файл
+vector<string> sortLines(vector<string> lines); //Функція для сортування рядків вектора
+void saveLinesToFile(const vector<string> &lines);//Функція для виводу вмісту файла на екран
