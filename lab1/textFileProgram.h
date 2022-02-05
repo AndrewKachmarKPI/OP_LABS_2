@@ -11,3 +11,4 @@ vector<string> readTextFile(const string &fileName); //Функція для с�
 void printFile(const string &fileName); //Функція запису рядків у файл
 vector<string> sortLines(vector<string> lines); //Функція для сортування рядків вектора
 void saveLinesToFile(const vector<string> &lines);//Функція для виводу вмісту файла на екран
+void appendLineLength();
