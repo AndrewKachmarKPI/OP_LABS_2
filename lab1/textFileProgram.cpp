@@ -49,7 +49,7 @@ void saveLinesToFile(const vector<string> &lines) { //Функція запис�
     }
 }
 
-vector<string> sortLines(vector<string> lines) { //Функція для сортування рядків вектора
+void sortLinesAndWriteToFile(vector<string> lines) { //Функція для сортування рядків вектора
     if (!lines.empty()) { //Перевірка чи вектор містить елементи
         for (int i = 0; i < lines.size() - 1; ++i) { //Цикл по рядках
             for (int j = 0; j < lines.size() - i - 1; ++j) { //Цикл по рядках
@@ -61,7 +61,7 @@ vector<string> sortLines(vector<string> lines) { //Функція для сор�
             }
         }
     }
-    return lines; //Поверняння рядків
+    saveLinesToFile(lines); //Запис відсортованих рядків
 }
 
 void appendLineLength() {
@@ -79,7 +79,7 @@ void appendLineLength() {
 }
 
 
-void printFile(const string &fileName) {  //Функція для виводу вмісту файла на екран
+void printFile(const string &fileName) {  //Функція для виводу вмісту файла
     ifstream fout(fileName); //Відкриття файла для считування
     if (fout.is_open()) { //Перевірка чи файл відкритий
         cout << fout.rdbuf(); //Виведення вмісту файла

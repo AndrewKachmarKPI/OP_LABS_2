@@ -6,8 +6,7 @@ using namespace std;
 int main() {
     createTextFile(); //Введення тексту та запис його у файл
     vector<string> lines = readTextFile("startText.txt"); //Отримання рядків файлу
-    vector<string> sortedLines = sortLines(lines); //Сортування та присвоєння кількості символів
-    saveLinesToFile(sortedLines); //Запис відсортованих рядків у новий файл
+    sortLinesAndWriteToFile(lines); //Сортування рядків за зростанням
     appendLineLength(); //Запис розміру рядка у файл
 
     cout << endl << "START FILE" << endl;
