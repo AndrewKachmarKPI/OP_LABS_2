@@ -7,27 +7,6 @@
 
 using namespace std;
 
-struct PatientEntity {
-    string lastName;
-    int lastVisitDay;
-    int lastVisitMonth;
-    int visitTimeHours;
-    int visitTimeMinutes;
-public:
-    void printPatient() const {
-        cout << lastName << " ";
-        cout.fill('0');
-        cout.width(2);
-        cout << lastVisitDay << '.';
-        cout.width(2);
-        cout << visitTimeHours << " ";
-        cout.width(2);
-        cout << visitTimeHours << ':';
-        cout.width(2);
-        cout << visitTimeMinutes << "\n";
-    }
-};
-
 PatientEntity createPatientEntity() {
     PatientEntity patientEntity{};
     cout << "Enter last name:";
@@ -56,18 +35,55 @@ void createPatientListFile() {
     file.close();
 }
 
-void readPatientListFile() {
+vector<PatientEntity> readPatientListFile(string fileName) {
     ifstream fileread;
-    fileread.open("allPatients.txt", ios::binary);
+    fileread.open(fileName, ios::binary);
 
-
+    vector<PatientEntity> patients;
     if (fileread.is_open()) {
-        vector<PatientEntity> patients;
         PatientEntity patientEntity{};
         while (fileread.read((char *) &patientEntity, sizeof(PatientEntity))) {
             patients.push_back(patientEntity);
-            patientEntity.printPatient();
         }
     }
     fileread.close();
+    return patients;
+}
+
+void deletePatientFromFile(PatientEntity patientEntity) {
+    ofstream fileWrite("allPatientsAfter.txt", ios::binary);
+    ifstream fileRead("allPatients.txt", ios::binary);
+
+    if (fileRead.is_open()) {
+        PatientEntity filePatient{};
+        while (fileRead.read((char *) &filePatient, sizeof(PatientEntity))) {
+            if (filePatient.lastName != patientEntity.lastName) {
+                fileWrite.write((char *) &filePatient, sizeof(PatientEntity));
+            }
+        }
+    }
+    fileWrite.close();
+    fileRead.close();
+}
+
+void deleteOldPatients(vector<PatientEntity> patients) {
+    time_t curr_time;
+    curr_time = time(NULL);
+    tm *tm_local = localtime(&curr_time);
+    int currentHour = tm_local->tm_hour;
+    int currentMinute = tm_local->tm_min;
+
+    for (auto &patient: patients) {
+        if (currentHour > patient.visitTimeHours) {
+            cout << "FOUND MATCH" << endl;
+            deletePatientFromFile(patient);
+            patient.printPatient();
+        } else {
+            if (currentHour == patient.visitTimeHours && currentMinute > patient.visitTimeMinutes) {
+                cout << "FOUND MATCH" << endl;
+                deletePatientFromFile(patient);
+                patient.printPatient();
+            }
+        }
+    }
 }
