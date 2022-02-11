@@ -1,29 +1,21 @@
 #include <iostream>
 #include <vector>
+#include "classes/PatientEntity.h"
 
 using namespace std;
-struct PatientEntity {
-    string lastName;
-    int lastVisitDay;
-    int lastVisitMonth;
-    int visitTimeHours;
-    int visitTimeMinutes;
-public:
-    void printPatient() const {
-        cout << lastName << " ";
-        cout.fill('0');
-        cout.width(2);
-        cout << lastVisitDay << '.';
-        cout.width(2);
-        cout << visitTimeHours << " ";
-        cout.width(2);
-        cout << visitTimeHours << ':';
-        cout.width(2);
-        cout << visitTimeMinutes << "\n";
-    }
-};
+
+string inputLastVisitDate();
+
+string inputVisitTime();
 
 PatientEntity createPatientEntity();
+
 void createPatientListFile();
+
 vector<PatientEntity> readPatientListFile(string fileName);
-void deleteOldPatients(vector<PatientEntity> patients);
+
+void selectPatientsForDelete(string currentTime, vector<PatientEntity> patients);
+
+void deletePatientsFromFile(int patientId, vector<PatientEntity> patients);
+
+void printFile(string fileName);
