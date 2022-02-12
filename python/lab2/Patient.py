@@ -7,6 +7,7 @@ class Patient:
         self.visitHour = visitHour
         self.visitMinute = visitMinute
 
-    def printPatient(self):
+    def printPatient(self):  # Метод для виведення даних пацієнта
         print(
-            "Patient {" + self.id + "," + self.lastName + "," + self.lastVisitDay + "/" + self.lastVisitMonth + "," + self.visitHour + ":" + self.visitMinute + "}")
+            "Patient {" + self.id + "," + self.lastName + "," + self.lastVisitDay + "/" +
+            self.lastVisitMonth + "," + self.visitHour + ":" + self.visitMinute + "}")

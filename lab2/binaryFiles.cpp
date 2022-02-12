@@ -9,18 +9,21 @@
 using namespace std;
 
 PatientEntity createPatientEntity() {
-    int day,month,time,minutes;
+    PatientEntity patientEntity;
+    cin.ignore(1);
+    string lastName;
+    cout << "Enter last name:";
+    cin.getline(patientEntity.lastName, 100);
+
     cout << "Input last visit day->" << endl;
-    cin >> day;
+    cin >> patientEntity.lastVisitDate;
     cout << "Input last visit month->" << endl;
-    cin >> month;
+    cin >> patientEntity.lastVisitMonth;
     cout << "Input visit time->" << endl;
-    cin >> time;
+    cin >> patientEntity.visitHour;
     cout << "Input visit minutes->" << endl;
-    cin >> minutes;
+    cin >> patientEntity.visitMinutes;
 
-
-    PatientEntity patientEntity = PatientEntity(0,  day, month, time, minutes);
     return patientEntity;
 }
 
@@ -31,17 +34,9 @@ void createPatientListFile() {
     cin >> numberOfPatients;
     ofstream file("allPatients.txt", ios::out | ios::binary);
     for (int i = 0; i < numberOfPatients; ++i) {
-        string lastName;
-        cout << "Enter last name:";
-        cin >> lastName;
         PatientEntity patientEntity = createPatientEntity();
-        patientEntity.setId(i);
-
-        size_t len = lastName.length();
-        file.write((char*) &len, sizeof(size_t));
-        file.write(lastName.data(), len);
-
-        file.write((char *) &patientEntity, sizeof(PatientEntity));
+        patientEntity.id = i;
+        file.write((char *) &patientEntity, sizeof(patientEntity));
     }
     file.close();
 }
@@ -50,10 +45,9 @@ vector<PatientEntity> readPatientListFile(string fileName) {
     ifstream fileread(fileName, ios::in | ios::binary);
     vector<PatientEntity> patients;
     if (fileread.is_open()) {
-        PatientEntity patientEntity = PatientEntity();
-        while (!fileread.eof()) {
-            fileread.read((char *) &patientEntity, sizeof(PatientEntity));
-            patients.push_back(patientEntity);
+        PatientEntity patient;
+        while (fileread.read((char *) &patient, sizeof patient)) {
+            patients.push_back(patient);
         }
     }
     fileread.close();
@@ -69,54 +63,68 @@ void printFile(string fileName) {
 }
 
 
-//void selectPatientsForDelete(string currentTime, vector<PatientEntity> patients) {
-//    int currentHour = stoi(currentTime.substr(0, currentTime.find(':')));
-//    int currentMinute = stoi(currentTime.substr(currentTime.find(':') + 1, currentTime.length()));
-//
-//    for (auto &patient: patients) {
-//        string patientTime = patient.getVisitTime();
-//        int patientHour = stoi(patientTime.substr(0, patientTime.find(':')));
-//        int patientMinute = stoi(patientTime.substr(patientTime.find(':') + 1, patientTime.length()));
-//
-//        if (currentHour > patientHour) {
-//            deletePatientsFromFile(patient.getId(), patients);
-//        } else if (currentHour == patientHour) {
-//            if (currentMinute > patientMinute) {
-//                deletePatientsFromFile(patient.getId(), patients);
-//            }
-//        }
-//    }
-//}
+void selectPatientsForDelete() {
+    time_t localTime;
+    localTime = time(NULL);
+    tm *tm_local = localtime(&localTime);
 
-//void deletePatientsFromFile(int patientId, vector<PatientEntity> patients) {
-//    ofstream newFile("temp.txt", ios::binary);
-//    for (auto &patient: patients) {
-//        if (patient.getId() != patientId) {
-//            PatientEntity patientEntity = PatientEntity(patient.getId(), patient.getLastName(),
-//                                                        patient.getLastVisitDate(), patient.getVisitTime());
-//            newFile.write((char *) &patientEntity, sizeof(PatientEntity));
-//        }
-//    }
-//    newFile.close();
-////    remove("allPatients.txt");
-////    rename("temp.txt", "allPatients.txt");
-//}
+    vector<PatientEntity> patients = readPatientListFile("allPatients.txt");
 
-//void deletePatientFromFile(PatientEntity patientEntity) {
-//    ofstream fileWrite("allPatientsAfter.txt", ios::binary);
-//    ifstream fileRead("allPatients.txt", ios::binary);
-//
-//    if (fileRead.is_open()) {
-//        PatientEntity filePatient{};
-//        while (fileRead.read((char *) &filePatient, sizeof(PatientEntity))) {
-//            if (filePatient.lastName != patientEntity.lastName) {
-//                fileWrite.write((char *) &filePatient, sizeof(PatientEntity));
-//            }
-//        }
-//    }
-//    fileWrite.close();
-//    fileRead.close();
-//}
+    int currentHour = tm_local->tm_hour;
+    int currentMinute = tm_local->tm_min;
+
+    for (auto &patient: patients) {
+        if (currentHour > patient.visitHour) {
+            patient.printData();
+            deletePatientsFromFile(patient.id);
+        } else if (currentHour == patient.visitHour) {
+            if (currentMinute > patient.visitMinutes) {
+                patient.printData();
+                deletePatientsFromFile(patient.id);
+            }
+        }
+    }
+}
+
+void deletePatientsFromFile(int patientId) {
+    vector<PatientEntity> patients = readPatientListFile("allPatients.txt");
+    ofstream newFile("temp.txt", ios::binary);
+    for (auto &patient: patients) {
+        if (patient.id != patientId) {
+            newFile.write((char *) &patient, sizeof(PatientEntity));
+        }
+    }
+    newFile.close();
+    remove("allPatients.txt");
+    rename("temp.txt", "allPatients.txt");
+}
+
+
+void sortPatients() {
+    time_t localTime;
+    time(&localTime);
+    tm *localDate = localtime(&localTime);
+    localDate->tm_mday;
+    localDate->tm_mon;
+    ofstream secondPatientsFile("secondPatients.txt", ios::binary);
+    ofstream restOfPatientsFile("restOfPatients.txt", ios::binary);
+    vector<PatientEntity> allPatients = readPatientListFile("allPatients.txt");
+    for (auto &patient: allPatients) {
+        int diffMonth = localDate->tm_mon - patient.lastVisitMonth;
+        int diffDay = localDate->tm_mday - patient.lastVisitDate;
+        if (diffDay < 0) {
+            diffMonth--;
+            diffDay += 30;
+        }
+        if (diffMonth < 0) {
+            diffMonth += 12;
+        }
+        if (diffDay>10){
+            cout<<"FOUND MATHC";
+            patient.printData();
+        }
+    }
+}
 
 //void selectPatientsForDelete(vector<PatientEntity> patients) {
 //    time_t curr_time;

@@ -1,72 +1,75 @@
+////
+//// Created by kachm on 07.02.2022.
+////
 //
-// Created by kachm on 07.02.2022.
+//#include "PatientEntity.h"
 //
-
-#include "PatientEntity.h"
-
-void PatientEntity::printData() {
-    cout << "Patient:{" + to_string(this->id) + "," + to_string(lastVisitDate) + "," + to_string(visitTime) + "}"
-         << endl;
-}
-
-
-int PatientEntity::getId() const {
-    return id;
-}
-
-void PatientEntity::setId(int id) {
-    PatientEntity::id = id;
-}
-
-
-int PatientEntity::getLastVisitDate() const {
-    return lastVisitDate;
-}
-
-void PatientEntity::setLastVisitDate(int lastVisitDate) {
-    PatientEntity::lastVisitDate = lastVisitDate;
-}
-
-int PatientEntity::getLastVisitMonth() const {
-    return lastVisitMonth;
-}
-
-void PatientEntity::setLastVisitMonth(int lastVisitMonth) {
-    PatientEntity::lastVisitMonth = lastVisitMonth;
-}
-
-int PatientEntity::getVisitTime() const {
-    return visitTime;
-}
-
-void PatientEntity::setVisitTime(int visitTime) {
-    PatientEntity::visitTime = visitTime;
-}
-
-int PatientEntity::getVisitMinutes() const {
-    return visitMinutes;
-}
-
-void PatientEntity::setVisitMinutes(int visitMinutes) {
-    PatientEntity::visitMinutes = visitMinutes;
-}
-
-PatientEntity::PatientEntity() {
-
-}
-
-PatientEntity::PatientEntity(int id, int lastVisitDate, int lastVisitMonth, int visitTime, int visitMinutes) : id(id),
-                                                                                                               lastVisitDate(
-                                                                                                                       lastVisitDate),
-                                                                                                               lastVisitMonth(
-                                                                                                                       lastVisitMonth),
-                                                                                                               visitTime(
-                                                                                                                       visitTime),
-                                                                                                               visitMinutes(
-                                                                                                                       visitMinutes) {}
+//void PatientEntity::printData() {
+//    cout << "Patient:{" + to_string(this->id) + "," + to_string(lastVisitDate) + "," + to_string(visitHour) + "}"
+//         << endl;
+//}
 //
-//const char *PatientEntity::getLastName() const {
+//
+//int PatientEntity::getId() const {
+//    return id;
+//}
+//
+//void PatientEntity::setId(int id) {
+//    PatientEntity::id = id;
+//}
+//
+//
+//int PatientEntity::getLastVisitDate() const {
+//    return lastVisitDate;
+//}
+//
+//void PatientEntity::setLastVisitDate(int lastVisitDate) {
+//    PatientEntity::lastVisitDate = lastVisitDate;
+//}
+//
+//int PatientEntity::getLastVisitMonth() const {
+//    return lastVisitMonth;
+//}
+//
+//void PatientEntity::setLastVisitMonth(int lastVisitMonth) {
+//    PatientEntity::lastVisitMonth = lastVisitMonth;
+//}
+//
+//int PatientEntity::getVisitTime() const {
+//    return visitHour;
+//}
+//
+//void PatientEntity::setVisitTime(int visitHour) {
+//    PatientEntity::visitHour = visitHour;
+//}
+//
+//int PatientEntity::getVisitMinutes() const {
+//    return visitMinutes;
+//}
+//
+//void PatientEntity::setVisitMinutes(int visitMinutes) {
+//    PatientEntity::visitMinutes = visitMinutes;
+//}
+//
+//PatientEntity::PatientEntity() {
+//
+//}
+//
+//PatientEntity::PatientEntity(int id, const string &lastName, int lastVisitDate, int lastVisitMonth, int visitHour,
+//                             int visitMinutes) : id(id), lastName(lastName), lastVisitDate(lastVisitDate),
+//                                                 lastVisitMonth(lastVisitMonth), visitHour(visitHour),
+//                                                 visitMinutes(visitMinutes) {}
+//
+//const string &PatientEntity::getLastName() const {
 //    return lastName;
 //}
-
-
+//
+//void PatientEntity::setLastName(const string &lastName) {
+//    PatientEntity::lastName = lastName;
+//}
+//
+////const char *PatientEntity::getLastName() const {
+////    return lastName;
+////}
+//
+//
