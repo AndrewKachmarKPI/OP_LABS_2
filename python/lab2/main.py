@@ -1,7 +1,6 @@
 from patientService import *
 
 if __name__ == '__main__':
-    # deleteOldPatients()
     createPatient()
     readPatientsFile("allPatients.txt")
     deleteOldPatients()

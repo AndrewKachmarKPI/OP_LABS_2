@@ -1,7 +1,5 @@
-//
-// Created by kachm on 07.02.2022.
-//
 #include <iostream>
+
 using namespace std;
 
 #ifndef LAB2_PATIENT_H
@@ -11,31 +9,41 @@ using namespace std;
 class PatientEntity {
 private:
     int id;
-    string lastName;
-    string lastVisitDate;
-    string visitTime;
+//    char lastName[256];
+    int lastVisitDate;
+    int lastVisitMonth;
+    int visitTime;
+    int visitMinutes;
+
 
 public:
-    void printData();
     PatientEntity();
-    PatientEntity(string lastName, string lastVisit, string visitTime);
-    PatientEntity(int id,string lastName, string lastVisit, string visitTime);
 
-    const string &getLastName() const;
 
-    void setLastName(const string &lastName);
+    void printData();
 
-    const string &getLastVisitDate() const;
+    PatientEntity(int id, int lastVisitDate, int lastVisitMonth, int visitTime, int visitMinutes);
 
-    void setLastVisitDate(const string &lastVisitDate);
+    int getLastVisitDate() const;
 
-    const string &getVisitTime() const;
+    void setLastVisitDate(int lastVisitDate);
 
-    void setVisitTime(const string &visitTime);
+    int getLastVisitMonth() const;
+
+    void setLastVisitMonth(int lastVisitMonth);
+
+    int getVisitTime() const;
+
+    void setVisitTime(int visitTime);
+
+    int getVisitMinutes() const;
+
+    void setVisitMinutes(int visitMinutes);
 
     int getId() const;
 
     void setId(int id);
+
 };
 
 

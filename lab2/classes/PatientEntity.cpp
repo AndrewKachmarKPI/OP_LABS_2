@@ -4,51 +4,11 @@
 
 #include "PatientEntity.h"
 
-PatientEntity::PatientEntity() {
-    this->lastName = "";
-    this->lastVisitDate = "";
-    this->visitTime = "";
-}
-
-PatientEntity::PatientEntity(string lastName, string lastVisit, string visitTime) {
-    this->lastName = lastName;
-    this->lastVisitDate = lastVisit;
-    this->visitTime = visitTime;
-}
-PatientEntity::PatientEntity(int id,string lastName, string lastVisit, string visitTime) {
-    this->id = id;
-    this->lastName = lastName;
-    this->lastVisitDate = lastVisit;
-    this->visitTime = visitTime;
-}
-
 void PatientEntity::printData() {
-    cout << "Patient:{" + to_string(this->id) + "," + this->lastName + "," + lastVisitDate + "," + visitTime + "}" << endl;
+    cout << "Patient:{" + to_string(this->id) + "," + to_string(lastVisitDate) + "," + to_string(visitTime) + "}"
+         << endl;
 }
 
-const string &PatientEntity::getLastName() const {
-    return lastName;
-}
-
-void PatientEntity::setLastName(const string &lastName) {
-    PatientEntity::lastName = lastName;
-}
-
-const string &PatientEntity::getLastVisitDate() const {
-    return lastVisitDate;
-}
-
-void PatientEntity::setLastVisitDate(const string &lastVisitDate) {
-    PatientEntity::lastVisitDate = lastVisitDate;
-}
-
-const string &PatientEntity::getVisitTime() const {
-    return visitTime;
-}
-
-void PatientEntity::setVisitTime(const string &visitTime) {
-    PatientEntity::visitTime = visitTime;
-}
 
 int PatientEntity::getId() const {
     return id;
@@ -57,3 +17,56 @@ int PatientEntity::getId() const {
 void PatientEntity::setId(int id) {
     PatientEntity::id = id;
 }
+
+
+int PatientEntity::getLastVisitDate() const {
+    return lastVisitDate;
+}
+
+void PatientEntity::setLastVisitDate(int lastVisitDate) {
+    PatientEntity::lastVisitDate = lastVisitDate;
+}
+
+int PatientEntity::getLastVisitMonth() const {
+    return lastVisitMonth;
+}
+
+void PatientEntity::setLastVisitMonth(int lastVisitMonth) {
+    PatientEntity::lastVisitMonth = lastVisitMonth;
+}
+
+int PatientEntity::getVisitTime() const {
+    return visitTime;
+}
+
+void PatientEntity::setVisitTime(int visitTime) {
+    PatientEntity::visitTime = visitTime;
+}
+
+int PatientEntity::getVisitMinutes() const {
+    return visitMinutes;
+}
+
+void PatientEntity::setVisitMinutes(int visitMinutes) {
+    PatientEntity::visitMinutes = visitMinutes;
+}
+
+PatientEntity::PatientEntity() {
+
+}
+
+PatientEntity::PatientEntity(int id, int lastVisitDate, int lastVisitMonth, int visitTime, int visitMinutes) : id(id),
+                                                                                                               lastVisitDate(
+                                                                                                                       lastVisitDate),
+                                                                                                               lastVisitMonth(
+                                                                                                                       lastVisitMonth),
+                                                                                                               visitTime(
+                                                                                                                       visitTime),
+                                                                                                               visitMinutes(
+                                                                                                                       visitMinutes) {}
+//
+//const char *PatientEntity::getLastName() const {
+//    return lastName;
+//}
+
+
