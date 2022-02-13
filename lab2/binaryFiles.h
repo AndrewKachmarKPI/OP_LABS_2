@@ -14,9 +14,18 @@ struct PatientEntity {
     int visitHour;
     int visitMinutes;
 
+    string getFormattedLastName() const {
+        string name;
+        int size = sizeof(lastName) / sizeof(char);
+        for (int i = 0; i < size; ++i) {
+            name += lastName[i];
+        }
+        return name;
+    }
+
     void printData() const {
-        cout << "Patient:{" + to_string(this->id) + "," + to_string(lastVisitDate) + "," + to_string(visitHour) + "}"
-             << endl;
+        cout << "Patient{" << id << "," << getFormattedLastName() << ","
+             << lastVisitDate << "." << lastVisitMonth << visitHour << ":" << visitMinutes << endl;
     }
 
     PatientEntity() {

@@ -65,7 +65,7 @@ void printFile(string fileName) {
 
 void selectPatientsForDelete() {
     time_t localTime;
-    localTime = time(NULL);
+    time(&localTime);
     tm *tm_local = localtime(&localTime);
 
     vector<PatientEntity> patients = readPatientListFile("allPatients.txt");
@@ -104,24 +104,25 @@ void sortPatients() {
     time_t localTime;
     time(&localTime);
     tm *localDate = localtime(&localTime);
-    localDate->tm_mday;
-    localDate->tm_mon;
+    int month = localDate->tm_mon + 1;
     ofstream secondPatientsFile("secondPatients.txt", ios::binary);
     ofstream restOfPatientsFile("restOfPatients.txt", ios::binary);
     vector<PatientEntity> allPatients = readPatientListFile("allPatients.txt");
     for (auto &patient: allPatients) {
-        int diffMonth = localDate->tm_mon - patient.lastVisitMonth;
+        int diffMonth = month - patient.lastVisitMonth;
         int diffDay = localDate->tm_mday - patient.lastVisitDate;
-        if (diffDay < 0) {
-            diffMonth--;
-            diffDay += 30;
+        int days = 0;
+        if (diffMonth > 0) {
+            days = localDate->tm_mday + patient.lastVisitDate;
+        } else {
+            days = diffDay;
         }
-        if (diffMonth < 0) {
-            diffMonth += 12;
-        }
-        if (diffDay>10){
-            cout<<"FOUND MATHC";
-            patient.printData();
+        cout << days;
+
+        if (days <= 10) {
+            secondPatientsFile.write((char *) &patient, sizeof patient);
+        } else{
+            restOfPatientsFile.write((char *) &patient, sizeof patient);
         }
     }
 }
