@@ -8,35 +8,22 @@ using namespace std;
 
 struct PatientEntity {
     int id;
-    char lastName[100];
-    int lastVisitDate;
+    char *lastName;
+    int lastVisitDay;
     int lastVisitMonth;
     int visitHour;
     int visitMinutes;
 
-    string getFormattedLastName() const {
-        string name;
-        int size = sizeof(lastName) / sizeof(char);
-        for (int i = 0; i < size; ++i) {
-            name += lastName[i];
-        }
-        return name;
-    }
-
     void printData() const {
-        cout << "Patient{" << id << "," << getFormattedLastName() << ","
-             << lastVisitDate << "." << lastVisitMonth <<','<< visitHour << ":" << visitMinutes << endl;
+        cout << "Patient{" << id << "," << lastName << ","
+             << lastVisitDay << "." << lastVisitMonth << ',' << visitHour << ":" << visitMinutes << "}" << endl;
     }
 
     PatientEntity() {
-        id = lastVisitDate = lastVisitMonth = visitHour = visitMinutes = 0;
+        id = lastVisitDay = lastVisitMonth = visitHour = visitMinutes = 0;
     }
 };
 
-
-string inputLastVisitDate();
-
-string inputVisitTime();
 
 PatientEntity createPatientEntity();
 

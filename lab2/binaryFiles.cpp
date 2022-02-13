@@ -5,23 +5,29 @@
 #include <string>
 #include <vector>
 #include <cstring>
+#include <iomanip>
 
 using namespace std;
 
 PatientEntity createPatientEntity() {
     PatientEntity patientEntity;
-    cin.ignore(1);
     string lastName;
     cout << "Enter last name:";
-    cin.getline(patientEntity.lastName, 100);
+    cin.ignore();
+    getline(cin, lastName);
+    char *tempArray = new char[lastName.length() + 1];
+    strcpy(tempArray, lastName.c_str());
+    patientEntity.lastName = tempArray;
 
-    cout << "Input last visit day->" << endl;
-    cin >> patientEntity.lastVisitDate;
-    cout << "Input last visit month->" << endl;
+    cout << "Input last visit date" << endl;
+    cout << "day->";
+    cin >> patientEntity.lastVisitDay;
+    cout << "month->";
     cin >> patientEntity.lastVisitMonth;
-    cout << "Input visit time->" << endl;
+    cout << "Input visit time" << endl;
+    cout << "hours->";
     cin >> patientEntity.visitHour;
-    cout << "Input visit minutes->" << endl;
+    cout << "minutes->";
     cin >> patientEntity.visitMinutes;
 
     return patientEntity;
@@ -75,10 +81,12 @@ void selectPatientsForDelete() {
 
     for (auto &patient: patients) {
         if (currentHour > patient.visitHour) {
+            cout << "DELETING--->";
             patient.printData();
             deletePatientsFromFile(patient.id);
         } else if (currentHour == patient.visitHour) {
             if (currentMinute > patient.visitMinutes) {
+                cout << "DELETING--->";
                 patient.printData();
                 deletePatientsFromFile(patient.id);
             }
@@ -105,12 +113,13 @@ void sortPatients() {
     time(&localTime);
     tm *localDate = localtime(&localTime);
     int month = localDate->tm_mon + 1;
+
     ofstream secondPatientsFile("secondPatients.txt", ios::binary);
     ofstream restOfPatientsFile("restOfPatients.txt", ios::binary);
     vector<PatientEntity> allPatients = readPatientListFile("allPatients.txt");
     for (auto &patient: allPatients) {
         int diffMonth = month - patient.lastVisitMonth;
-        int diffDay = localDate->tm_mday - patient.lastVisitDate;
+        int diffDay = localDate->tm_mday - patient.lastVisitDay;
         int days;
         if (diffMonth == 0) {
             days = diffDay;
@@ -118,12 +127,9 @@ void sortPatients() {
             if (diffMonth < 0) {
                 days = 20;
             } else {
-                days = localDate->tm_mday + (31 - patient.lastVisitDate);
+                days = localDate->tm_mday + (31 - patient.lastVisitDay);
             }
         }
-
-        cout << days;
-
         if (days <= 10) {
             secondPatientsFile.write((char *) &patient, sizeof patient);
         } else {

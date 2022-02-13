@@ -10,7 +10,7 @@
 //private:
 //    int id;
 //    string lastName;
-//    int lastVisitDate;
+//    int lastVisitDay;
 //    int lastVisitMonth;
 //    int visitHour;
 //    int visitMinutes;
@@ -19,7 +19,7 @@
 //public:
 //    PatientEntity();
 //
-//    PatientEntity(int id, const string &lastName, int lastVisitDate, int lastVisitMonth, int visitHour,
+//    PatientEntity(int id, const string &lastName, int lastVisitDay, int lastVisitMonth, int visitHour,
 //                  int visitMinutes);
 //
 //    void printData();
@@ -30,7 +30,7 @@
 //
 //    int getLastVisitDate() const;
 //
-//    void setLastVisitDate(int lastVisitDate);
+//    void setLastVisitDate(int lastVisitDay);
 //
 //    int getLastVisitMonth() const;
 //

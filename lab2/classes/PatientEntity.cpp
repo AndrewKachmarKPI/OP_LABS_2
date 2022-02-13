@@ -5,7 +5,7 @@
 //#include "PatientEntity.h"
 //
 //void PatientEntity::printData() {
-//    cout << "Patient:{" + to_string(this->id) + "," + to_string(lastVisitDate) + "," + to_string(visitHour) + "}"
+//    cout << "Patient:{" + to_string(this->id) + "," + to_string(lastVisitDay) + "," + to_string(visitHour) + "}"
 //         << endl;
 //}
 //
@@ -20,11 +20,11 @@
 //
 //
 //int PatientEntity::getLastVisitDate() const {
-//    return lastVisitDate;
+//    return lastVisitDay;
 //}
 //
-//void PatientEntity::setLastVisitDate(int lastVisitDate) {
-//    PatientEntity::lastVisitDate = lastVisitDate;
+//void PatientEntity::setLastVisitDate(int lastVisitDay) {
+//    PatientEntity::lastVisitDay = lastVisitDay;
 //}
 //
 //int PatientEntity::getLastVisitMonth() const {
@@ -55,8 +55,8 @@
 //
 //}
 //
-//PatientEntity::PatientEntity(int id, const string &lastName, int lastVisitDate, int lastVisitMonth, int visitHour,
-//                             int visitMinutes) : id(id), lastName(lastName), lastVisitDate(lastVisitDate),
+//PatientEntity::PatientEntity(int id, const string &lastName, int lastVisitDay, int lastVisitMonth, int visitHour,
+//                             int visitMinutes) : id(id), lastName(lastName), lastVisitDay(lastVisitDay),
 //                                                 lastVisitMonth(lastVisitMonth), visitHour(visitHour),
 //                                                 visitMinutes(visitMinutes) {}
 //
