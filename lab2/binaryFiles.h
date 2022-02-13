@@ -25,7 +25,7 @@ struct PatientEntity {
 
     void printData() const {
         cout << "Patient{" << id << "," << getFormattedLastName() << ","
-             << lastVisitDate << "." << lastVisitMonth << visitHour << ":" << visitMinutes << endl;
+             << lastVisitDate << "." << lastVisitMonth <<','<< visitHour << ":" << visitMinutes << endl;
     }
 
     PatientEntity() {

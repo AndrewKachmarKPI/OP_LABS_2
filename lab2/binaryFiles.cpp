@@ -111,40 +111,23 @@ void sortPatients() {
     for (auto &patient: allPatients) {
         int diffMonth = month - patient.lastVisitMonth;
         int diffDay = localDate->tm_mday - patient.lastVisitDate;
-        int days = 0;
-        if (diffMonth > 0) {
-            days = localDate->tm_mday + patient.lastVisitDate;
-        } else {
+        int days;
+        if (diffMonth == 0) {
             days = diffDay;
+        } else {
+            if (diffMonth < 0) {
+                days = 20;
+            } else {
+                days = localDate->tm_mday + (31 - patient.lastVisitDate);
+            }
         }
+
         cout << days;
 
         if (days <= 10) {
             secondPatientsFile.write((char *) &patient, sizeof patient);
-        } else{
+        } else {
             restOfPatientsFile.write((char *) &patient, sizeof patient);
         }
     }
 }
-
-//void selectPatientsForDelete(vector<PatientEntity> patients) {
-//    time_t curr_time;
-//    curr_time = time(NULL);
-//    tm *tm_local = localtime(&curr_time);
-//    int currentHour = tm_local->tm_hour;
-//    int currentMinute = tm_local->tm_min;
-//
-//    for (auto &patient: patients) {
-//        if (currentHour > patient.visitTimeHours) {
-//            cout << "FOUND MATCH" << endl;
-//            deletePatientFromFile(patient);
-//            patient.printPatient();
-//        } else {
-//            if (currentHour == patient.visitTimeHours && currentMinute > patient.visitTimeMinutes) {
-//                cout << "FOUND MATCH" << endl;
-//                deletePatientFromFile(patient);
-//                patient.printPatient();
-//            }
-//        }
-//    }
-//}
