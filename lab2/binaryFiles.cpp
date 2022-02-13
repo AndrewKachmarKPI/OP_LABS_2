@@ -1,139 +1,135 @@
-
 #include <fstream>
 #include "binaryFiles.h"
-#include "classes/PatientEntity.h"
 #include <string>
 #include <vector>
 #include <cstring>
-#include <iomanip>
 
 using namespace std;
 
-PatientEntity createPatientEntity() {
-    PatientEntity patientEntity;
+Patient createPatientEntity() { // Метод для створення обєкта пацієнта
+    Patient patientEntity; //Створення пацієнта
     string lastName;
     cout << "Enter last name:";
     cin.ignore();
-    getline(cin, lastName);
-    char *tempArray = new char[lastName.length() + 1];
-    strcpy(tempArray, lastName.c_str());
-    patientEntity.lastName = tempArray;
+    getline(cin, lastName);  //Введення прізвища
+    char *tempArray = new char[lastName.length() + 1]; //Створення масиву char
+    strcpy(tempArray, lastName.c_str()); //Копіювання рядка у масив
+    patientEntity.lastName = tempArray; //Присвоєння обєкту введенне прізвище
 
     cout << "Input last visit date" << endl;
     cout << "day->";
-    cin >> patientEntity.lastVisitDay;
+    cin >> patientEntity.lastVisitDay; //Введення дня останнього відвідування
     cout << "month->";
-    cin >> patientEntity.lastVisitMonth;
+    cin >> patientEntity.lastVisitMonth;//Введення місяця останнього відвідування
     cout << "Input visit time" << endl;
     cout << "hours->";
-    cin >> patientEntity.visitHour;
+    cin >> patientEntity.visitHour; //Введення години відвідування
     cout << "minutes->";
-    cin >> patientEntity.visitMinutes;
+    cin >> patientEntity.visitMinutes; //Введення хвилини відвідування
 
-    return patientEntity;
+    return patientEntity; //Повернення створеного та ініціалізованого обєкта
 }
 
 
-void createPatientListFile() {
+void createPatientListFile() { // Метод для створення пацієнтів
     int numberOfPatients;
     cout << "Enter number of patients:";
-    cin >> numberOfPatients;
-    ofstream file("allPatients.txt", ios::out | ios::binary);
-    for (int i = 0; i < numberOfPatients; ++i) {
-        PatientEntity patientEntity = createPatientEntity();
-        patientEntity.id = i;
-        file.write((char *) &patientEntity, sizeof(patientEntity));
+    cin >> numberOfPatients; //Введення кількості пацієнтів
+    ofstream file("allPatients.txt", ios::out | ios::binary); //Відкриття бінарного файлу для запису
+    for (int i = 0; i < numberOfPatients; ++i) { //Цикл по кількості пацієнтів
+        Patient patientEntity = createPatientEntity(); //Створення пацієнта
+        patientEntity.id = i; //Присвоєння порядкового номеру пацієнта
+        file.write((char *) &patientEntity, sizeof(patientEntity)); //Запис обєкта в файл
     }
-    file.close();
+    file.close(); //Закриття файлу
 }
 
-vector<PatientEntity> readPatientListFile(string fileName) {
-    ifstream fileread(fileName, ios::in | ios::binary);
-    vector<PatientEntity> patients;
-    if (fileread.is_open()) {
-        PatientEntity patient;
-        while (fileread.read((char *) &patient, sizeof patient)) {
-            patients.push_back(patient);
+vector<Patient> readPatientListFile(string fileName) { //  Метод для считування даних про пацієнтів
+    ifstream fileread(fileName, ios::in | ios::binary); //Відкриття бінарного файлу для считування
+    vector<Patient> patients;
+    if (fileread.is_open()) {  //Перевірка відкриття файлу
+        Patient patient; //Створення пацієнта
+        while (fileread.read((char *) &patient, sizeof patient)) { // Цикл по файлу та считування
+            patients.push_back(patient);   // Запис пацієнта у вектор
         }
+    } else {
+        cout << "File open error!!" << endl; // Виведення повідомлення про помилку
     }
-    fileread.close();
-    return patients;
+    fileread.close(); // Закриття файлу
+    return patients; //Повернення пацієнтів файлу
 }
 
-void printFile(string fileName) {
-    ifstream fileread(fileName, ios::in | ios::binary);
-    PatientEntity patientEntity;
-    while (fileread.read((char *) &patientEntity, sizeof(PatientEntity))) {
-        patientEntity.printData();
+void printFile(string fileName) { // Метод для виведення вмісту файла
+    ifstream fileread(fileName, ios::in | ios::binary); //Отримання усіх пацієнтів
+    Patient patientEntity; //Створення пацієнта
+    while (fileread.read((char *) &patientEntity, sizeof(Patient))) { //Цикл по файлу та считування
+        patientEntity.printData(); //Виведення інформації про пацієнта
     }
+    cout << endl;
 }
 
-
-void selectPatientsForDelete() {
-    time_t localTime;
-    time(&localTime);
-    tm *tm_local = localtime(&localTime);
-
-    vector<PatientEntity> patients = readPatientListFile("allPatients.txt");
-
-    int currentHour = tm_local->tm_hour;
-    int currentMinute = tm_local->tm_min;
-
-    for (auto &patient: patients) {
-        if (currentHour > patient.visitHour) {
+void selectPatientsForDelete() { // Метод для отримання пацієнтів для видалення
+    time_t localTime; //Отримання поточного часу
+    time(&localTime); //Отримання поточного часу
+    tm *tm_local = localtime(&localTime); //Отримання поточного часу
+    vector<Patient> patients = readPatientListFile("allPatients.txt"); //Пацієнтів файлу
+    int currentHour = tm_local->tm_hour; //Отримання поточної години
+    int currentMinute = tm_local->tm_min; // Отримання поточної хвилини
+    for (auto &patient: patients) { //Цикл по пацієнтах
+        if (currentHour > patient.visitHour) { //Перевірка чи поточна година більша за годину прийому
             cout << "DELETING--->";
-            patient.printData();
-            deletePatientsFromFile(patient.id);
-        } else if (currentHour == patient.visitHour) {
-            if (currentMinute > patient.visitMinutes) {
+            patient.printData(); //Виведення інформації про пацієнта
+            deletePatientsFromFile(patient.id); //Видалення пацієнта з файлу
+        } else if (currentHour == patient.visitHour) { //Перевірка чи поточна хвилина рівна хвилина прийому
+            if (currentMinute > patient.visitMinutes) { //Перевірка чи поточна хвилина більша за хвилина прийому
                 cout << "DELETING--->";
-                patient.printData();
-                deletePatientsFromFile(patient.id);
+                patient.printData(); //Виведення інформації про пацієнта
+                deletePatientsFromFile(patient.id); //Видалення пацієнта з файлу
             }
         }
     }
 }
 
-void deletePatientsFromFile(int patientId) {
-    vector<PatientEntity> patients = readPatientListFile("allPatients.txt");
-    ofstream newFile("temp.txt", ios::binary);
-    for (auto &patient: patients) {
-        if (patient.id != patientId) {
-            newFile.write((char *) &patient, sizeof(PatientEntity));
+void deletePatientsFromFile(int patientId) { // Метод для видалення пацієнта з файлу
+    vector<Patient> patients = readPatientListFile("allPatients.txt"); //Считування пацієнтів файлу
+    ofstream newFile("temp.txt", ios::binary); //Відкриття бінарного файлу для запису
+    for (auto &patient: patients) { //Цикл по пацієнтах
+        if (patient.id != patientId) { // Перевірка порядкового номеру пацієнта
+            newFile.write((char *) &patient, sizeof(Patient)); //Запис пацієнта у новий файл
         }
     }
     newFile.close();
-    remove("allPatients.txt");
-    rename("temp.txt", "allPatients.txt");
+    remove("allPatients.txt"); //Видалення старого файлу
+    rename("temp.txt", "allPatients.txt"); //Перейменування файлу
 }
 
 
 void sortPatients() {
-    time_t localTime;
-    time(&localTime);
-    tm *localDate = localtime(&localTime);
-    int month = localDate->tm_mon + 1;
+    time_t localTime; //Отримання поточного часу
+    time(&localTime);  //Отримання поточного часу
+    tm *localDate = localtime(&localTime); //Отримання поточного часу
+    int month = localDate->tm_mon + 1; //Отримання поточного місяця
 
-    ofstream secondPatientsFile("secondPatients.txt", ios::binary);
-    ofstream restOfPatientsFile("restOfPatients.txt", ios::binary);
-    vector<PatientEntity> allPatients = readPatientListFile("allPatients.txt");
-    for (auto &patient: allPatients) {
-        int diffMonth = month - patient.lastVisitMonth;
-        int diffDay = localDate->tm_mday - patient.lastVisitDay;
+    ofstream secondPatientsFile("secondPatients.txt", ios::binary);//Відкриття бінарного файлу для запису
+    ofstream restOfPatientsFile("restOfPatients.txt", ios::binary);//Відкриття бінарного файлу для запису
+    vector<Patient> allPatients = readPatientListFile("allPatients.txt");//Отримання пацієнтів
+    for (auto &patient: allPatients) {// Цикл по пацієнтах
+        int diffMonth = month - patient.lastVisitMonth; //Різниця в місяцях
+        int diffDay = localDate->tm_mday - patient.lastVisitDay;//Різниця в днях
         int days;
-        if (diffMonth == 0) {
+        if (diffMonth == 0) {//Перевірка місяця
             days = diffDay;
         } else {
-            if (diffMonth < 0) {
+            if (diffMonth < 0) {//Перевірка місяця
                 days = 20;
             } else {
                 days = localDate->tm_mday + (31 - patient.lastVisitDay);
             }
         }
-        if (days <= 10) {
-            secondPatientsFile.write((char *) &patient, sizeof patient);
+        if (days <= 10) {//Перевірка різниці між датами
+            secondPatientsFile.write((char *) &patient, sizeof patient);//Запис пацієнта у новий файл
         } else {
-            restOfPatientsFile.write((char *) &patient, sizeof patient);
+            restOfPatientsFile.write((char *) &patient, sizeof patient);//Запис пацієнта у новий файл
         }
     }
 }
