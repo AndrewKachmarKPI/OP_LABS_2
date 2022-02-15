@@ -73,18 +73,20 @@ void selectPatientsForDelete() { // Метод для отримання пац�
     time(&localTime); //Отримання поточного часу
     tm *tm_local = localtime(&localTime); //Отримання поточного часу
     vector<Patient> patients = readPatientListFile("allPatients.txt"); //Пацієнтів файлу
-    int currentHour = tm_local->tm_hour; //Отримання поточної години
-    int currentMinute = tm_local->tm_min; // Отримання поточної хвилини
-    for (auto &patient: patients) { //Цикл по пацієнтах
-        if (currentHour > patient.visitHour) { //Перевірка чи поточна година більша за годину прийому
-            cout << "DELETING--->";
-            patient.printData(); //Виведення інформації про пацієнта
-            deletePatientsFromFile(patient.id); //Видалення пацієнта з файлу
-        } else if (currentHour == patient.visitHour) { //Перевірка чи поточна хвилина рівна хвилина прийому
-            if (currentMinute > patient.visitMinutes) { //Перевірка чи поточна хвилина більша за хвилина прийому
+    if (!patients.empty()) { //Перевірка чи пацієнти існують
+        int currentHour = tm_local->tm_hour; //Отримання поточної години
+        int currentMinute = tm_local->tm_min; // Отримання поточної хвилини
+        for (auto &patient: patients) { //Цикл по пацієнтах
+            if (currentHour > patient.visitHour) { //Перевірка чи поточна година більша за годину прийому
                 cout << "DELETING--->";
                 patient.printData(); //Виведення інформації про пацієнта
                 deletePatientsFromFile(patient.id); //Видалення пацієнта з файлу
+            } else if (currentHour == patient.visitHour) { //Перевірка чи поточна хвилина рівна хвилина прийому
+                if (currentMinute > patient.visitMinutes) { //Перевірка чи поточна хвилина більша за хвилина прийому
+                    cout << "DELETING--->";
+                    patient.printData(); //Виведення інформації про пацієнта
+                    deletePatientsFromFile(patient.id); //Видалення пацієнта з файлу
+                }
             }
         }
     }
@@ -113,23 +115,25 @@ void sortPatients() {
     ofstream secondPatientsFile("secondPatients.txt", ios::binary);//Відкриття бінарного файлу для запису
     ofstream restOfPatientsFile("restOfPatients.txt", ios::binary);//Відкриття бінарного файлу для запису
     vector<Patient> allPatients = readPatientListFile("allPatients.txt");//Отримання пацієнтів
-    for (auto &patient: allPatients) {// Цикл по пацієнтах
-        int diffMonth = month - patient.lastVisitMonth; //Різниця в місяцях
-        int diffDay = localDate->tm_mday - patient.lastVisitDay;//Різниця в днях
-        int days;
-        if (diffMonth == 0) {//Перевірка місяця
-            days = diffDay;
-        } else {
-            if (diffMonth < 0) {//Перевірка місяця
-                days = 20;
+    if (!allPatients.empty()) { //Перевірка чи пацієнти існують
+        for (auto &patient: allPatients) {// Цикл по пацієнтах
+            int diffMonth = month - patient.lastVisitMonth; //Різниця в місяцях
+            int diffDay = localDate->tm_mday - patient.lastVisitDay;//Різниця в днях
+            int days;
+            if (diffMonth == 0) {//Перевірка місяця
+                days = diffDay;
             } else {
-                days = localDate->tm_mday + (31 - patient.lastVisitDay);
+                if (diffMonth < 0) {//Перевірка місяця
+                    days = 20;
+                } else {
+                    days = localDate->tm_mday + (31 - patient.lastVisitDay);
+                }
             }
-        }
-        if (days <= 10) {//Перевірка різниці між датами
-            secondPatientsFile.write((char *) &patient, sizeof patient);//Запис пацієнта у новий файл
-        } else {
-            restOfPatientsFile.write((char *) &patient, sizeof patient);//Запис пацієнта у новий файл
+            if (days <= 10) {//Перевірка різниці між датами
+                secondPatientsFile.write((char *) &patient, sizeof patient);//Запис пацієнта у новий файл
+            } else {
+                restOfPatientsFile.write((char *) &patient, sizeof patient);//Запис пацієнта у новий файл
+            }
         }
     }
 }
