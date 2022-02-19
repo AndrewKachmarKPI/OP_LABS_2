@@ -19,13 +19,29 @@ Patient createPatientEntity() { // Метод для створення обєк
     cout << "Input last visit date" << endl;
     cout << "day->";
     cin >> patientEntity.lastVisitDay; //Введення дня останнього відвідування
+    while(patientEntity.lastVisitDay>31 || patientEntity.lastVisitDay<=0){
+        cout << "day->";
+        cin >> patientEntity.lastVisitDay; //Введення дня останнього відвідування
+    }
     cout << "month->";
     cin >> patientEntity.lastVisitMonth;//Введення місяця останнього відвідування
+    while(patientEntity.lastVisitMonth>12 || patientEntity.lastVisitMonth<=0){
+        cout << "month->";
+        cin >> patientEntity.lastVisitMonth;//Введення місяця останнього відвідування
+    }
     cout << "Input visit time" << endl;
     cout << "hours->";
     cin >> patientEntity.visitHour; //Введення години відвідування
+    while(patientEntity.visitHour>23 || patientEntity.visitHour<0){
+        cout << "hours->";
+        cin >> patientEntity.visitHour; //Введення години відвідування
+    }
     cout << "minutes->";
     cin >> patientEntity.visitMinutes; //Введення хвилини відвідування
+    while(patientEntity.visitHour>60 || patientEntity.visitMinutes<0){
+        cout << "minutes->";
+        cin >> patientEntity.visitMinutes; //Введення хвилини відвідування
+    }
 
     return patientEntity; //Повернення створеного та ініціалізованого обєкта
 }
