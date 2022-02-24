@@ -6,15 +6,26 @@ import pickle
 
 def createPatient():  # Метод для створення пацієнтів
     numberOfPatients = int(input("Enter number of patients:"))
+    while int(numberOfPatients) < 0:
+        numberOfPatients = int(input("Enter number of patients:"))
     with open("allPatients.txt", "wb") as file:  # Відкриття бінарного файлу для запису
         for i in range(numberOfPatients):  # Цикл по кількості пацієнтів
             lastName = str(input("Enter last name:"))  # Введення прізвища
-            lastVisitDay = str(input("Enter last visit day:"))  # Введення дня останнього відвідування
-            lastVisitMonth = str(input("Enter last visit month:"))  # Введення місяця останнього відвідування
-            visitHour = str(input("Enter visit hour:"))  # Введення години відвідування
-            visitMinute = str(input("Enter visit minute:"))  # Введення хвилини відвідування
-            patient = Patient(str(i), lastName, lastVisitDay,
-                              lastVisitMonth, visitHour, visitMinute)  # Створення та ініціалізація обєкта
+            lastVisitDay = int(input("Enter last visit day:"))  # Введення дня останнього відвідування
+            while lastVisitDay > 31 or lastVisitDay <= 0:
+                lastVisitDay = int(input("Enter last visit day:"))  # Введення дня останнього відвідування
+            lastVisitMonth = int(input("Enter last visit month:"))  # Введення місяця останнього відвідування
+            while lastVisitMonth > 12 or lastVisitMonth <= 0:
+                lastVisitMonth = int(input("Enter last visit month:"))  # Введення місяця останнього відвідування
+            visitHour = int(input("Enter visit hour:"))  # Введення години відвідування
+            while visitHour > 23 or visitHour < 0:
+                visitHour = int(input("Enter visit hour:"))  # Введення години відвідування
+            visitMinute = int(input("Enter visit minute:"))  # Введення хвилини відвідування
+            while visitMinute > 60 or visitMinute < 0:
+                visitMinute = int(input("Enter visit minute:"))  # Введення хвилини відвідування
+            patient = Patient(str(i), lastName, str(lastVisitDay),
+                              str(lastVisitMonth), str(visitHour),
+                              str(visitMinute))  # Створення та ініціалізація обєкта
             pickle.dump(patient, file)  # Запис обєкта в файл
 
 
