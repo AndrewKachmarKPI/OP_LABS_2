@@ -3,35 +3,22 @@
 //
 
 #include "Line.h"
+#include <iostream>
 
-Line::Line(int a, int b, int c) : a(a), b(b), c(c) {}
+using namespace std;
 
-int Line::getA() const {
-    return a;
-}
-
-void Line::setA(int a) {
-    Line::a = a;
-}
-
-int Line::getB() const {
-    return b;
-}
-
-void Line::setB(int b) {
-    Line::b = b;
-}
-
-int Line::getC() const {
-    return c;
-}
-
-void Line::setC(int c) {
-    Line::c = c;
-}
+Line::Line(int a, int b, int c) : aPoint(a), bPoint(b), cPoint(c) {}
 
 Line::Line() {
-    this->a = 0;
-    this->b = 0;
-    this->c = 0;
+    this->aPoint = 0;
+    this->bPoint = 0;
+    this->cPoint = 0;
+}
+
+bool Line::isLineContainsPoint(int xPos, int yPos) const {
+    return ((this->aPoint * xPos) + (yPos * this->bPoint) + this->cPoint) == 0;
+}
+
+void Line::printLine() const {
+    cout << "Line:{" << "a=" << this->aPoint << " b=" << this->bPoint << " c=" << this->cPoint << "}" << endl;
 }

@@ -5,28 +5,18 @@
 #ifndef LAB3_LINE_H
 #define LAB3_LINE_H
 
-
 class Line {
 private:
-    int a;
-    int b;
-    int c;
+    int aPoint;
+    int bPoint;
+    int cPoint;
 public:
     Line(int a, int b, int c);
 
-    int getA() const;
-
-    void setA(int a);
-
-    int getB() const;
-
-    void setB(int b);
-
-    int getC() const;
-
-    void setC(int c);
-
     Line();
+
+    bool isLineContainsPoint(int xPos, int yPos) const;
+    void printLine() const;
 };
 
 

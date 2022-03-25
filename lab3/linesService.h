@@ -7,8 +7,8 @@
 
 using namespace std;
 
-vector<Line> createLines(int numberOfLines);
-
-bool solve(Line line, int x, int y);
-
-vector<int> filterLines(vector<Line> lines, int x, int y);
+Line* createLines(int linesCount);
+Line *createLinesRandom(int linesCount);
+int randomNumber(int max, int min);
+void getLinesIndexes(Line *lines, int linesCount, int xPos, int yPos);
+int *addElement(int element, const int *array, int size);
