@@ -8,6 +8,7 @@
 using namespace std;
 
 Line* createLines(int linesCount);
+Line *createLines();
 Line *createLinesRandom(int linesCount);
 int randomNumber(int max, int min);
 void getLinesIndexes(Line *lines, int linesCount, int xPos, int yPos);

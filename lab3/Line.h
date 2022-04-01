@@ -12,9 +12,7 @@ private:
     int cPoint;
 public:
     Line(int a, int b, int c);
-
     Line();
-
     bool isLineContainsPoint(int xPos, int yPos) const;
     void printLine() const;
 };

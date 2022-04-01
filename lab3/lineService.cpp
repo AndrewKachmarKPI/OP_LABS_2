@@ -6,22 +6,26 @@
 #include "Line.h"
 #include "linesService.h"
 
-
 Line *createLines(int linesCount) {
     Line *lines = new Line[linesCount];
 
     for (int i = 0; i < linesCount; ++i) {
         int a, b, c;
-        cout << "Input parameter [a]:";
-        cin >> a;
-        cout << "Input parameter [b]:";
-        cin >> b;
-        cout << "Input parameter [c]:";
-        cin >> c;
+        cout << "Input parameter [a]:";cin >> a;
+        cout << "Input parameter [b]:";cin >> b;
+        cout << "Input parameter [c]:";cin >> c;
         lines[i] = Line(a, b, c);
         cout << endl;
     }
 
+    return lines;
+}
+
+Line *createLinesRandom(int linesCount) {
+    Line *lines = new Line[linesCount];
+    for (int i = 0; i < linesCount; ++i) {
+        lines[i] = Line(0+(rand()%100),0+(rand()%100),0+(rand()%100));
+    }
     return lines;
 }
 
