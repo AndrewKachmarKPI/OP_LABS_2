@@ -13,6 +13,6 @@ int main() {
 
     Line* lines = createLinesRandom(linesCount);
     getLinesIndexes(lines,linesCount,xPos,yPos);
-
+    delete[] lines;
     return 0;
 }
