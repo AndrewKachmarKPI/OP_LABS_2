@@ -1,11 +1,3 @@
-//
-// Created by kachm on 07.04.2022.
-//
-
-#ifndef LAB4_AREAVECTOR_H
-#define LAB4_AREAVECTOR_H
-
-
 #include "Coordinates.h"
 
 class AreaVector {
@@ -19,9 +11,4 @@ public:
     double getLength() const;
 
     const Coordinates &getCoordinates() const;
-
-    void setCoordinates(const Coordinates &coordinates);
 };
-
-
-#endif //LAB4_AREAVECTOR_H

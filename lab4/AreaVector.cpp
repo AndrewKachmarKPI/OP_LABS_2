@@ -1,7 +1,3 @@
-//
-// Created by kachm on 07.04.2022.
-//
-
 #include <valarray>
 #include "AreaVector.h"
 
@@ -26,8 +22,3 @@ double AreaVector::getLength() const {
 const Coordinates &AreaVector::getCoordinates() const {
     return coordinates;
 }
-
-void AreaVector::setCoordinates(const Coordinates &coordinates) {
-    AreaVector::coordinates = coordinates;
-}
-
