@@ -1,24 +1,36 @@
 #include <valarray>
 #include "AreaVector.h"
 
-AreaVector::AreaVector(const Coordinates &coordinates) : coordinates(coordinates) {}
 
 AreaVector operator-(AreaVector vector1, AreaVector vector2) {
-    return (Coordinates(vector1.getCoordinates().getXPos() - vector2.getCoordinates().getXPos(),
-                        vector1.getCoordinates().getYPos() - vector2.getCoordinates().getYPos()));
-}
-AreaVector operator*(AreaVector vector, int size) {
-    return (Coordinates(vector.getCoordinates().getXPos()*size,vector.getCoordinates().getYPos()*size));
+    return {(vector1.getXPos() - vector2.getXPos()), (vector1.getYPos() - vector2.getYPos())};
 }
 
-AreaVector::AreaVector() {
-    this->coordinates = Coordinates();
+AreaVector operator*(AreaVector vector, int size) {
+    return {(vector.getXPos() * size), (vector.getYPos()*size)};
 }
 
 double AreaVector::getLength() const {
-    return sqrt(pow(this->getCoordinates().getXPos(), 2) + pow(this->getCoordinates().getYPos(), 2));
+    return sqrt(pow(this->xPos, 2) + pow(this->yPos, 2));
 }
 
-const Coordinates &AreaVector::getCoordinates() const {
-    return coordinates;
+AreaVector::AreaVector(double xPos, double yPos) : xPos(xPos), yPos(yPos) {}
+
+double AreaVector::getXPos() const {
+    return xPos;
 }
+
+void AreaVector::setXPos(double xPos) {
+    AreaVector::xPos = xPos;
+}
+
+double AreaVector::getYPos() const {
+    return yPos;
+}
+
+void AreaVector::setYPos(double yPos) {
+    AreaVector::yPos = yPos;
+}
+
+AreaVector::AreaVector(): xPos(0), yPos(0) {}
+

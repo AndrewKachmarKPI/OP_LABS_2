@@ -3,4 +3,4 @@ project(lab4)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(lab4 main.cpp AreaVector.cpp AreaVector.h Coordinates.cpp Coordinates.h)
+add_executable(lab4 main.cpp AreaVector.cpp AreaVector.h)
