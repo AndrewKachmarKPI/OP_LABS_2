@@ -4,7 +4,7 @@
 using namespace std;
 
 int main() {
-    int v1_x, v1_y,v2_x, v2_y = 0;
+    double v1_x, v1_y,v2_x, v2_y = 0;
     cout << "Input v1 x=";cin>>v1_x;
     cout << "Input v1 y=";cin>>v1_y;
     cout << "Input v2 x=";cin>>v2_x;
