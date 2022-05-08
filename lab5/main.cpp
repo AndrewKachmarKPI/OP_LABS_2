@@ -15,11 +15,11 @@ int main() {
 
     TNumber* intNumbers[m];
     for (int i = 0; i < m; ++i) {
-        intNumbers[i] = new TIntNumber(1 + (rand() % 10000));
+        intNumbers[i] = new TIntNumber(1 + (rand() % 100000));
     }
     TNumber* realNumbers[m];
     for (int i = 0; i < n; ++i) {
-        realNumbers[i] = new TRealNumber(1 + (double)(rand()) * (double)(999) / RAND_MAX);
+        realNumbers[i] = new TRealNumber(1 + (double)(rand()) * (double)(99999) / RAND_MAX);
     }
 
     int firstNumbersSum = 0,lastNumbersSum=0;

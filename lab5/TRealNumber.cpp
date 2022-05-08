@@ -1,9 +1,5 @@
 #include "TRealNumber.h"
-#include <iostream>
 #include <cmath>
-#include <cstring>
-
-using namespace std;
 
 TRealNumber::TRealNumber(double number) : number(number) {}
 
@@ -41,9 +37,5 @@ int TRealNumber::getSumOfDigits() {
         fractPart = modf(fractPart, &intPart);
     }
     return sum;
-}
-
-void TRealNumber::printNumber() {
-    cout << "Real number:" << this->number << endl;
 }
 

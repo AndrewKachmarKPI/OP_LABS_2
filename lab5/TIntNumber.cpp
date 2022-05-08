@@ -1,10 +1,4 @@
 #include "TIntNumber.h"
-#include <iostream>
-using namespace std;
-
-void TIntNumber::printNumber() {
-    cout<<"Int number:"<< this->number<<endl;
-}
 
 int TIntNumber::getLastDigit() {
     return this->number % 10;

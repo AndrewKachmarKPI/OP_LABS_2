@@ -3,4 +3,4 @@ project(lab5)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(lab5 main.cpp TNumber.cpp TNumber.h TIntNumber.cpp TIntNumber.h TRealNumber.cpp TRealNumber.h)
+add_executable(lab5 main.cpp TNumber.h TIntNumber.cpp TIntNumber.h TRealNumber.cpp TRealNumber.h)

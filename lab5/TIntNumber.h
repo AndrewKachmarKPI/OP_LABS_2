@@ -14,17 +14,11 @@ private:
 public:
     TIntNumber(int number);
 
-    int getNumber() const;
-
-    void setNumber(int number);
-
     int getLastDigit() override;
 
     int getFirstDigit() override;
 
     int getSumOfDigits() override;
-
-    void printNumber() override;
 };
 
 

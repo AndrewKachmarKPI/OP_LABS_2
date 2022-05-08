@@ -15,16 +15,11 @@ public:
 private:
 public:
     TRealNumber(double number);
-
-private:
     int getLastDigit() override;
 
     int getFirstDigit() override;
 
     int getSumOfDigits() override;
-
-public:
-    void printNumber() override;
 };
 
 
