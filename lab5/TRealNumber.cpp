@@ -2,7 +2,6 @@
 #include <cmath>
 
 TRealNumber::TRealNumber(double number) : number(number) {}
-
 int TRealNumber::getLastDigit() {
     double intPart;
     double fractPart = modf(this->number, &intPart);
@@ -14,14 +13,12 @@ int TRealNumber::getLastDigit() {
     }
     return lastDigit;
 }
-
 int TRealNumber::getFirstDigit() {
     int fistDigit = int(this->number);
     while (fistDigit >= 10)
         fistDigit = fistDigit / 10;
     return fistDigit;
 }
-
 int TRealNumber::getSumOfDigits() {
     int sum = 0;
     double intPart;

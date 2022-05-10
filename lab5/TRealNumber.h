@@ -12,8 +12,6 @@ class TRealNumber : virtual public TNumber {
 private:
     double number;
 public:
-private:
-public:
     TRealNumber(double number);
     int getLastDigit() override;
 

@@ -11,7 +11,13 @@ int main() {
     srand(time(NULL));
     int m=0,n = 0;
     cout << "Enter number of int numbers:";cin >> m;
+    while (m<0){
+        cout << "Enter number of int numbers:";cin >> m;
+    }
     cout << "Enter number of real numbers:";cin >> n;
+    while (n<0){
+        cout << "Enter number of int numbers:";cin >> m;
+    }
 
     TNumber* intNumbers[m];
     for (int i = 0; i < m; ++i) {
