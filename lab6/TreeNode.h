@@ -12,13 +12,10 @@ private:
     TreeNode *leftNode;
     TreeNode *rightNode;
 public:
-    TreeNode(int number, TreeNode *leftNode, TreeNode *rightNode);
     TreeNode(int number);
     TreeNode();
 
     int getNumber() const;
-
-    void setNumber(int number);
 
     TreeNode *getLeftNode() const;
 

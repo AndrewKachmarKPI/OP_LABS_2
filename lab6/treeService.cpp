@@ -11,7 +11,6 @@ int countNumberOfLevels(TreeNode *root, int levels) {
     }
     return levels;
 }
-
 TreeNode *generateTreeNode(TreeNode *root, int numberOfLevels) {
     if (numberOfLevels > 0) {
         root->setLeftNode(generateTreeNode(new TreeNode(-30 + rand() % 100), numberOfLevels - 1));
@@ -19,7 +18,6 @@ TreeNode *generateTreeNode(TreeNode *root, int numberOfLevels) {
     }
     return root;
 }
-
 int getNumberOfNodesOnLevel(TreeNode *node, int selected, int current) {
     if (selected == current) {
         return 1;
@@ -43,10 +41,14 @@ void printTree(TreeNode *root, int selected, int current, int total) {
     }
 }
 void printTree(TreeNode *root, int totalLevels){
-    int total = getNumberOfNodesOnLevel(root,totalLevels,0);
-    for (int i = 0; i < totalLevels; ++i) {
-        printTree(root,i,0, total);
+    if(totalLevels<=7) {
+        int total = getNumberOfNodesOnLevel(root,totalLevels,0);
+        for (int i = 0; i < totalLevels; ++i) {
+            printTree(root,i,0, total);
+            cout<<endl;
+        }
         cout<<endl;
+    }else{
+        cout<<"Tree is too large for printing"<<endl;
     }
-    cout<<endl;
 }
