@@ -4,11 +4,12 @@
 
 #include "TreeNode.h"
 
+#include <bits/stdc++.h>
 
 TreeNode::TreeNode(int number, TreeNode *leftNode, TreeNode *rightNode) : number(number), leftNode(leftNode),
                                                                           rightNode(rightNode) {}
-TreeNode::TreeNode(int number): number(number), leftNode(),
-                                rightNode() {}
+TreeNode::TreeNode(int number): number(number), leftNode(NULL),rightNode(NULL) {}
+
 TreeNode::TreeNode(): number(0), leftNode(),
                       rightNode() {}
 
